@@ -1,6 +1,12 @@
 # Blender 3MF Color Importer
 
+[![Latest Release](https://img.shields.io/github/v/release/AlonS3/blender-3mf-color-importer?label=Download&style=for-the-badge)](https://github.com/AlonS3/blender-3mf-color-importer/releases/latest)
+
 A Blender addon that imports `.3mf` files from 3D printing slicers with multicolor paint data preserved as vertex colors.
+
+## Download
+
+**[Download Latest Release](https://github.com/AlonS3/blender-3mf-color-importer/releases/latest)** - Click to go to the releases page and download the `.zip` file.
 
 ## Supported Slicers
 
