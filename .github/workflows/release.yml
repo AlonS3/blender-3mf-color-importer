@@ -1,0 +1,46 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Get version from tag
+        id: get_version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+      - name: Create addon zip
+        run: |
+          # Create a zip file of the addon folder for easy installation
+          cd $GITHUB_WORKSPACE
+          zip -r blender-3mf-color-importer-${{ steps.get_version.outputs.VERSION }}.zip bambu_3mf_importer/
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: v${{ steps.get_version.outputs.VERSION }}
+          body: |
+            ## 3MF Color Importer v${{ steps.get_version.outputs.VERSION }}
+            
+            ### Installation
+            1. Download `blender-3mf-color-importer-${{ steps.get_version.outputs.VERSION }}.zip`
+            2. In Blender, go to **Edit > Preferences > Add-ons**
+            3. Click **Install...** and select the downloaded zip file
+            4. Enable the addon
+            
+            See [README](https://github.com/AlonS3/blender-3mf-color-importer#readme) for usage instructions.
+          files: |
+            blender-3mf-color-importer-${{ steps.get_version.outputs.VERSION }}.zip
+          draft: false
+          prerelease: false
